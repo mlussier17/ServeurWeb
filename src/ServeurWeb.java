@@ -1,65 +1,124 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 
-/**
- * Created by 196128636 on 2016-04-01.
- */
 public class ServeurWeb {
-    // region Constantes
-    private final int POS_PORT = 1;
-    private final int POS_REPERTOIRE = 2;
-    private static final int DEFAULT_PORT = 80;
-    private static final String DEFAULT_PATH = ("c:\\www");
-    // endregion
+    private static final String DEFAULT_CONFIG = ("\\src\\config.txt");
+
     // region Variables
+    private static int portNumber;
+    private static String rootPath;
+    private static String indexFile;
+    private Boolean list;
+    private static int connNumber;
     private ServerSocket sSocket;
     private boolean run = true;
-    private static int port;
-    private static String file = null;
     public Thread t;
+    private static String currentDirectory;
+    private static File projectpath;
+    private static File configFile;
+    private static File configPath;
     // endregion
 
     public static void main (String args[]){
-        if(args.length == 0){ new ServeurWeb().connection(DEFAULT_PORT, DEFAULT_PATH); }
+        //region Zero Parameter
+        if(args.length == 0) {
+            setUpConfig();
+            if (configPath.exists()) {
+                new ServeurWeb().readConfig(configPath, false, false, args);
+                new ServeurWeb().connection();
+            } else {
+                System.err.println("Configuration file not found");
+                System.exit(1);
+            }
+        }
+        //endregion
 
+        //region One Parameter
         if (args.length == 1){
             try {
-                port = Integer.parseInt(args[0]);
+                 int port = Integer.parseInt(args[0]);
                 if (port > 0 && port < 65535) {
-                    new ServeurWeb().connection(Integer.parseInt(args[0]), DEFAULT_PATH);
+                    setUpConfig();
+                    if (configPath.exists()) {
+                            new ServeurWeb().readConfig(configPath, true, false, args);
+                            new ServeurWeb().connection();
+                    } else {
+                        System.err.println("Configuration file not found");
+                        System.exit(1);
+                    }
+                } else {
+                    System.err.println(port + " is an invalid port. Port range(1, 65535)");
+                    System.exit(1);
                 }
-                else throw new NumberFormatException();
             }
-            catch (NumberFormatException nfe){ System.err.println("Port invalide"); }
+            catch (NumberFormatException nfe){
+                System.err.println("Port must be numbers");
+                System.exit(1);
+            }
         }
+        //endregion
 
+        //region Two Parameters
         if (args.length == 2){
-            try{
-                port = Integer.parseInt(args[0]);
+            try {
+                int port = Integer.parseInt(args[0]);
+                File directory = new File(args[1]);
                 if (port > 0 && port < 65535) {
-                    file = args[1];
-                    new ServeurWeb().connection(Integer.parseInt(args[0]), file);
+                    setUpConfig();
+                    if (configPath.exists()) {
+                        if (directory.isDirectory() && directory.exists()) {
+                            new ServeurWeb().readConfig(configPath, true, true, args);
+                            new ServeurWeb().connection();
+                        }
+                        else{
+                            System.err.println(directory + " directory doesn't exist or is not a directory");
+                            System.exit(1);
+                        }
+                    } else {
+                        System.err.println("Configuration file not found");
+                        System.exit(1);
+                    }
+                } else {
+                    System.err.println(port + " Invalid port. Range(1, 65535)");
+                    System.exit(1);
                 }
-                else throw new NumberFormatException();
             }
-            catch (NumberFormatException nfe){ System.err.println("Port invalide"); }
+            catch (NumberFormatException nfe){
+                System.err.println("Port must be numbers");
+                System.exit(1);
+            }
         }
+        //endregion
     }
 
-    public void connection(int port, String path){
+    public static void setUpConfig(){
+        try {
+            projectpath = new File(".");
+            configFile = new File(DEFAULT_CONFIG);
+            currentDirectory = projectpath.getCanonicalPath() + configFile;
+            configPath = new File(currentDirectory);
+        }
+        catch (IOException ioe) {
+            System.err.println("Can't retrieve the project path.");
+        }
+
+    }
+
+    public void connection(){
         try{
-            sSocket = new ServerSocket(port);
-            System.out.println("Port = " + port);
-            System.out.println("Dossier = " + path);
-            System.out.println("Serveur en attente");
+            sSocket = new ServerSocket(portNumber);
+            System.out.println("Port = " + portNumber);
+            System.out.println("Directory = " + rootPath);
+            System.out.println("Server online waiting for request ...");
 
             while(run){
                 Socket cSocket = sSocket.accept();
-                System.out.println("Client connecte");
-                ServiceWeb conn = new ServiceWeb(cSocket, path);
+                System.out.println("Client connected.");
+                ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
                 t = new Thread(conn);
                 t.start();
             }
@@ -67,6 +126,41 @@ public class ServeurWeb {
         }
         catch(IOException ioe){
             ioe.printStackTrace();
+        }
+    }
+
+    public void readConfig(File config, Boolean port, Boolean path, String[] args){
+        String line;
+        String[] tokens;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(config));
+
+            while((line = reader.readLine()) != null){
+                tokens = line.split("=");
+                switch(tokens[0]){
+                    case "port":
+                        portNumber = port ? Integer.parseInt(args[0]) : Integer.parseInt(tokens[1]);
+                        break;
+                    case "root":
+                        rootPath = path ? args[1] : tokens[1];
+                        break;
+                    case "index":
+                        indexFile = tokens[1];
+                        break;
+                    case "list":
+                        list = tokens[1].equals("true");
+                        System.out.println(list);
+                        break;
+                    case "connexion":
+                        connNumber = Integer.parseInt(tokens[1]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        catch (IOException ioe){
+            System.err.println("Unable to read the config file.");
         }
     }
 }
