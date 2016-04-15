@@ -10,7 +10,7 @@ import java.util.Locale;
  */
 public class ServiceWeb implements Runnable{
    
-   //region Constantes
+    //region Constantes
     private final String HEAD = "HEAD";
     private final String GET = "GET";
     private final File INDEX = new File("c:\\www\\index.html");
@@ -19,8 +19,6 @@ public class ServiceWeb implements Runnable{
     private Socket cSocket;
     public BufferedReader reader= null;
     public PrintWriter writer= null;
-    // écrire sur firefox
-    public PrintWriter write= null;
     public BufferedInputStream read= null;
     public DataOutputStream sender = null;
     private String ligne = null;
@@ -67,9 +65,9 @@ public class ServiceWeb implements Runnable{
                         }
                     }
                     else if (!fileIndex.exists()&& file.isDirectory()) {
-                        //writer.println("HTTP/1.1 403 Acces refuse");
-                        //writer.println();
-                        //writer.flush();
+                        writer.println("HTTP/1.1 403 Acces refuse");
+                        writer.println();
+                        writer.flush();
                         //writer.close();
                     }
 
@@ -87,10 +85,10 @@ public class ServiceWeb implements Runnable{
                 }
             }
             catch (FileNotFoundException fnfe){
-                writer.println("HTTP/1.1 404 Not Found");
-                writer.println();
-                writer.flush();
-                writer.close();
+//                writer.println("HTTP/1.1 404 Not Found");
+//                writer.println();
+//                writer.flush();
+//                writer.close();
             }
             catch (IOException ioe) {
                System.err.println("Unexpected error");
@@ -98,7 +96,6 @@ public class ServiceWeb implements Runnable{
             read.close();
             sender.close();
             writer.close();
-            write.close();
             reader.close();
 
             System.out.println("Client deconnecte");
@@ -109,30 +106,30 @@ public class ServiceWeb implements Runnable{
     }
 
     private void Afficher_Fichiers(File file) {
-        //try {
-            //write = new PrintWriter(cSocket.getOutputStream());
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
         File[] listFichier = file.listFiles();
         try{
             writer = new PrintWriter(cSocket.getOutputStream(), true);
             writer.println("<html>");
             writer.println("<body>");
-            writer.println("<pre>");
 
-            writer.println("<a>Name</a>");
-            writer.println("<a>Last modified</a>");
-            writer.println("<a>Size</a>");
-            writer.println("<a>Description</a>");
-            writer.println("<hr>");
+            writer.println("<h1>Index of " + file.toString() + "</h1>");
+
+            writer.print("<table style=\"width:100%\">");
+
+            writer.print("<tr>");
+            writer.print("<td>Name</td>");
+            writer.print("<td>Last modified</td>");
+            writer.print("<td>Size</td>");
+            writer.print("<td>Description</td>");
+            writer.print("</tr>");
 
             for(int i=0; i< listFichier.length; ++i) {
-                writer.println("<a href=\"" + listFichier[i].toString() + "\">" + listFichier[i].toString() + "</a>" + "\"" + getLastModifiedDateRfc822(listFichier[i]) + listFichier[i].length() + "\"");
+                writer.print("<tr>");
+                writer.println("<td><a href=\"" + listFichier[i].toString() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
+                writer.print("</tr>");
             }
 
-            writer.println("</hr>");
-            writer.println("</pre>");
+            writer.print("</table>");
             writer.println("</body>");
             writer.println("</html>");
             writer.flush();
