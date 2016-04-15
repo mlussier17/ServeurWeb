@@ -10,13 +10,17 @@ import java.util.Locale;
  */
 public class ServiceWeb implements Runnable{
    
-   //Variables
+   //region Constantes
     private final String HEAD = "HEAD";
     private final String GET = "GET";
     private final File INDEX = new File("c:\\www\\index.html");
+    //endregion
+    //region Variables
     private Socket cSocket;
     public BufferedReader reader= null;
     public PrintWriter writer= null;
+    // écrire sur firefox
+    public PrintWriter write= null;
     public BufferedInputStream read= null;
     public DataOutputStream sender = null;
     private String ligne = null;
@@ -25,6 +29,7 @@ public class ServiceWeb implements Runnable{
     private File file = null;
     private File fileIndex = null;
     private boolean fileExist = false;
+    //endregion
 
     public  ServiceWeb(Socket client, String path){
         document = path;
@@ -62,18 +67,23 @@ public class ServiceWeb implements Runnable{
                         }
                     }
                     else if (!fileIndex.exists()&& file.isDirectory()) {
-                        writer.println("HTTP/1.1 403 Acces refuse");
-                        writer.println();
-                        writer.flush();
-                        writer.close();
+                        //writer.println("HTTP/1.1 403 Acces refuse");
+                        //writer.println();
+                        //writer.flush();
+                        //writer.close();
                     }
+
+
                     if (fileIndex.exists() && !fileExist){
                         if (tokens[0].equals(HEAD)) head(tokens, fileIndex);
                         if (tokens[0].equals(GET)) {
                             if (tokens[1].length() > 2) get(tokens, fileIndex);
                         }
                     }
-                    else if(!fileExist) throw new FileNotFoundException();
+                    else if(!fileExist) {
+                        Afficher_Fichiers(file);
+                        //throw new FileNotFoundException();
+                    }
                 }
             }
             catch (FileNotFoundException fnfe){
@@ -88,6 +98,7 @@ public class ServiceWeb implements Runnable{
             read.close();
             sender.close();
             writer.close();
+            write.close();
             reader.close();
 
             System.out.println("Client deconnecte");
@@ -96,11 +107,47 @@ public class ServiceWeb implements Runnable{
             System.err.println("Client deconnecte");
         }
     }
+
+    private void Afficher_Fichiers(File file) {
+        //try {
+            //write = new PrintWriter(cSocket.getOutputStream());
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+        File[] listFichier = file.listFiles();
+        try{
+            writer = new PrintWriter(cSocket.getOutputStream(), true);
+            writer.println("<html>");
+            writer.println("<body>");
+            writer.println("<pre>");
+
+            writer.println("<a>Name</a>");
+            writer.println("<a>Last modified</a>");
+            writer.println("<a>Size</a>");
+            writer.println("<a>Description</a>");
+            writer.println("<hr>");
+
+            for(int i=0; i< listFichier.length; ++i) {
+                writer.println("<a href=\"" + listFichier[i].toString() + "\">" + listFichier[i].toString() + "</a>" + "\"" + getLastModifiedDateRfc822(listFichier[i]) + listFichier[i].length() + "\"");
+            }
+
+            writer.println("</hr>");
+            writer.println("</pre>");
+            writer.println("</body>");
+            writer.println("</html>");
+            writer.flush();
+            writer.close();
+        }
+        catch (IOException e){
+            //e.printStackTrace();
+            System.err.println("Impossible de recevoir la destination");
+        }
+    }
     
     private void head(String[] tokens, File file){
         try{
             writer.println("HTTP/1.0 200 OK");
-            writer.println("Server: Bulletproof Corporation, CEO:Mathieu, Bitch:Joaquin");
+            writer.println("Server: Bulletproof Corporation, CEO:Joaquin, Bitch:Mathieu");
             writer.println("Date: " + getDateRfc822(date));
 
             if (tokens[1].endsWith("/")) writer.println("Content-type: text/html");
