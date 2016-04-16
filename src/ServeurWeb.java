@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
@@ -6,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class ServeurWeb {
+    //("\\config.txt") on console ------- ("\\src\\config.txt") on IjIdea
     private static final String DEFAULT_CONFIG = ("\\src\\config.txt");
 
     // region Variables
@@ -104,6 +106,7 @@ public class ServeurWeb {
         }
         catch (IOException ioe) {
             System.err.println("Can't retrieve the project path.");
+            System.exit(1);
         }
 
     }
@@ -124,8 +127,13 @@ public class ServeurWeb {
             }
             sSocket.close();
         }
+        catch (BindException be){
+            System.err.println("Port is already in use by another program.");
+            System.exit(1);
+        }
         catch(IOException ioe){
             ioe.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -142,7 +150,13 @@ public class ServeurWeb {
                         portNumber = port ? Integer.parseInt(args[0]) : Integer.parseInt(tokens[1]);
                         break;
                     case "root":
-                        rootPath = path ? args[1] : tokens[1];
+                        File check = path ? new File(args[1]) : new File(tokens[1]);
+                        if (check.exists())
+                            rootPath = path ? args[1] : tokens[1];
+                        else {
+                            System.err.println("Specified directory doesn't exist");
+                            System.exit(1);
+                        }
                         break;
                     case "index":
                         indexFile = tokens[1];
@@ -161,6 +175,7 @@ public class ServeurWeb {
         }
         catch (IOException ioe){
             System.err.println("Unable to read the config file.");
+            System.exit(1);
         }
     }
 }
