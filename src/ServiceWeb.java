@@ -9,7 +9,7 @@ import java.util.Locale;
  * Created by 196128636 on 2016-04-01.
  */
 public class ServiceWeb implements Runnable{
-   
+
     //region Constantes
     private final String HEAD = "HEAD";
     private final String GET = "GET";
@@ -96,7 +96,7 @@ public class ServiceWeb implements Runnable{
 //                writer.close();
             }
             catch (IOException ioe) {
-               System.err.println("Unexpected error");
+                System.err.println("Unexpected error");
             }
             read.close();
             sender.close();
@@ -111,6 +111,7 @@ public class ServiceWeb implements Runnable{
     }
 
     private void Afficher_Fichiers(File file) {
+//        String lien = file.getPath().replaceFirst(repertoire, "") + "\\" + s;
         File[] listFichier = file.listFiles();
         try{
             writer = new PrintWriter(cSocket.getOutputStream(), true);
@@ -145,7 +146,7 @@ public class ServiceWeb implements Runnable{
             System.err.println("Impossible de recevoir la destination");
         }
     }
-    
+
     private void head(String[] tokens, File file){
         try{
             writer.println("HTTP/1.0 200 OK");
