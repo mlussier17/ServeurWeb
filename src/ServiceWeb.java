@@ -47,41 +47,46 @@ public class ServiceWeb implements Runnable{
                     System.out.println(ligne);
 
                 String[] tokens = ligne.split(" ");
-                if (tokens[0].equals(GET) && tokens[1].length() == 1) get(tokens, INDEX);
+                if(tokens[0].equals(GET) || tokens[0].equals(HEAD)) {
+                    if (tokens[0].equals(GET) && tokens[1].length() == 1) get(tokens, INDEX);
 
-                else if (tokens.length > 1) {
-                    file = new File(document + tokens[1]);
-                    if(tokens[1].endsWith("/"))
-                        fileIndex = new File(document + tokens[1] + "index.html");
-                    else if(tokens[1].endsWith(""))
-                        fileIndex = new File(document + tokens[1] + "/index.html");
+                    else if (tokens.length > 1) {
+                        file = new File(document + tokens[1]);
+                        if (tokens[1].endsWith("/"))
+                            fileIndex = new File(document + tokens[1] + "index.html");
+                        else if (tokens[1].endsWith(""))
+                            fileIndex = new File(document + tokens[1] + "/index.html");
 
 
-                    if (file.exists() && !file.isDirectory()) {
-                        fileExist = true;
-                        if (tokens[0].equals(HEAD)) head(tokens, file);
-                        if (tokens[0].equals(GET)) {
-                            if (tokens[1].length() > 2) get(tokens, file);
+                        if (file.exists() && !file.isDirectory()) {
+                            fileExist = true;
+                            if (tokens[0].equals(HEAD)) head(tokens, file);
+                            if (tokens[0].equals(GET)) {
+                                if (tokens[1].length() > 2) get(tokens, file);
+                            }
+                        } else if (!fileIndex.exists() && file.isDirectory()) {
+                            writer.println("HTTP/1.1 403 Acces refuse");
+                            writer.println();
+                            writer.flush();
+                            //writer.close();
+                        }
+
+
+                        if (fileIndex.exists() && !fileExist) {
+                            if (tokens[0].equals(HEAD)) head(tokens, fileIndex);
+                            if (tokens[0].equals(GET)) {
+                                if (tokens[1].length() > 2) get(tokens, fileIndex);
+                            }
+                        } else if (!fileExist) {
+                            Afficher_Fichiers(file);
+                            //throw new FileNotFoundException();
                         }
                     }
-                    else if (!fileIndex.exists()&& file.isDirectory()) {
-                        writer.println("HTTP/1.1 403 Acces refuse");
-                        writer.println();
-                        writer.flush();
-                        //writer.close();
-                    }
-
-
-                    if (fileIndex.exists() && !fileExist){
-                        if (tokens[0].equals(HEAD)) head(tokens, fileIndex);
-                        if (tokens[0].equals(GET)) {
-                            if (tokens[1].length() > 2) get(tokens, fileIndex);
-                        }
-                    }
-                    else if(!fileExist) {
-                        Afficher_Fichiers(file);
-                        //throw new FileNotFoundException();
-                    }
+                }
+                else {
+                    writer.println("501 (Not Implemented)");
+                    writer.println();
+                    writer.flush();
                 }
             }
             catch (FileNotFoundException fnfe){
