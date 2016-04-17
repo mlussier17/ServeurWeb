@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -84,7 +83,7 @@ public class ServiceWeb implements Runnable{
                     }
                 }
                 else {
-                    writer.println("501 (Not Implemented)");
+                    writer.println("HTTP 501 Not implemented");
                     writer.println();
                     writer.flush();
                 }
