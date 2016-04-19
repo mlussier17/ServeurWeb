@@ -14,7 +14,7 @@ public class ServeurWeb {
     private static int portNumber;
     private static String rootPath;
     private static String indexFile;
-    private Boolean list;
+    public static Boolean list;
     private static int connNumber;
     private ServerSocket sSocket;
     private boolean run = true;
@@ -177,4 +177,6 @@ public class ServeurWeb {
             System.exit(1);
         }
     }
+
+    public static boolean getList(){return list;}
 }
