@@ -63,11 +63,12 @@ public class ServiceWeb implements Runnable{
                                 if (tokens[1].length() > 2) get(tokens, file);
                             }
                         } else if (!fileIndex.exists() && file.isDirectory()) {
-                            tokens[1] = "/403.html";
-                            File fichierErreur403 = new File("c:\\www\\403.html");
-                            writer.println("HTTP/1.1 403 Acces refuse");
-                            writer.println();
-                            Afficher_Erreur403(fichierErreur403, tokens);
+//                            tokens[1] = "/403.html";
+//                            File fichierErreur403 = new File("403.html");
+
+//                            writer.println("HTTP/1.1 403 Acces refuse");
+//                            writer.println();
+//                            Afficher_Erreur403(fichierErreur403, tokens);
                             //writer.flush();
                             //writer.close();
                         }
