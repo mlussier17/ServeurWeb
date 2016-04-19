@@ -154,7 +154,7 @@ public class ServiceWeb implements Runnable{
         }
         else {
             tokens[1] = "/404.html";
-            File fichierErreur404 = new File("c:\\www\\404.html");
+            File fichierErreur404 = new File("404.html");
             Afficher_Erreur403(fichierErreur404, tokens);
             System.err.println("Client deconnecte");
         }
