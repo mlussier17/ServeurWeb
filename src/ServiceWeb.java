@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by 196128636 on 2016-04-01.
- */
+
 public class ServiceWeb implements Runnable{
 
     //region Constantes
@@ -26,6 +24,7 @@ public class ServiceWeb implements Runnable{
     private File file = null;
     private File fileIndex = null;
     private boolean fileExist = false;
+    String[] tokens = null;
     //endregion
 
     public  ServiceWeb(Socket client, String path){
@@ -45,7 +44,7 @@ public class ServiceWeb implements Runnable{
                 if (ligne != null)
                     System.out.println(ligne);
 
-                String[] tokens = ligne.split(" ");
+                tokens = ligne.split(" ");
                 if(tokens[0].equals(GET) || tokens[0].equals(HEAD)) {
                     if (tokens[0].equals(GET) && tokens[1].length() == 1) get(tokens, INDEX);
 
@@ -64,28 +63,35 @@ public class ServiceWeb implements Runnable{
                                 if (tokens[1].length() > 2) get(tokens, file);
                             }
                         } else if (!fileIndex.exists() && file.isDirectory()) {
+                            tokens[1] = "/403.html";
+                            File fichierErreur403 = new File("c:\\www\\403.html");
                             writer.println("HTTP/1.1 403 Acces refuse");
                             writer.println();
-                            writer.flush();
+                            Afficher_Erreur403(fichierErreur403, tokens);
+                            //writer.flush();
                             //writer.close();
                         }
-
 
                         if (fileIndex.exists() && !fileExist) {
                             if (tokens[0].equals(HEAD)) head(tokens, fileIndex);
                             if (tokens[0].equals(GET)) {
                                 if (tokens[1].length() > 2) get(tokens, fileIndex);
                             }
-                        } else if (!fileExist) {
-                            Afficher_Fichiers(file);
-                            //throw new FileNotFoundException();
+                        } else if (!fileExist && !file.exists()) {
+                            // if (lister) {
+                            Afficher_Fichiers(file, tokens);
+                            //}
+                            //else {
+                            // tokens[1] = "/403.html";
+                            // File fichierErreur403 = new File("c:\\www\\403.html");
+                            // Afficher_Erreur403(fichierErreur403, tokens);
+                            //}
                         }
                     }
                 }
                 else {
                     writer.println("HTTP 501 Not implemented");
                     writer.println();
-                    writer.flush();
                 }
             }
             catch (FileNotFoundException fnfe){
@@ -109,40 +115,57 @@ public class ServiceWeb implements Runnable{
         }
     }
 
-    private void Afficher_Fichiers(File file) {
+    private void Afficher_Fichiers(File file, String [] tokens) {
 //        String lien = file.getPath().replaceFirst(repertoire, "") + "\\" + s;
         File[] listFichier = file.listFiles();
-        try{
-            writer = new PrintWriter(cSocket.getOutputStream(), true);
-            writer.println("<html>");
-            writer.println("<body>");
+        if(listFichier != null) {
+            try {
+                writer = new PrintWriter(cSocket.getOutputStream(), true);
+                writer.println("<html>");
+                writer.println("<body>");
 
-            writer.println("<h1>Index of " + file.toString() + "</h1>");
+                writer.println("<h1>Index of " + file.toString() + "</h1>");
 
-            writer.print("<table style=\"width:100%\">");
+                writer.print("<table style=\"width:100%\">");
 
-            writer.print("<tr>");
-            writer.print("<td>Name</td>");
-            writer.print("<td>Last modified</td>");
-            writer.print("<td>Size</td>");
-            writer.print("<td>Description</td>");
-            writer.print("</tr>");
-
-            for(int i=0; i< listFichier.length; ++i) {
                 writer.print("<tr>");
-                writer.println("<td><a href=\"" + listFichier[i].toString() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
+                writer.print("<td>Name</td>");
+                writer.print("<td>Last modified</td>");
+                writer.print("<td>Size</td>");
+                writer.print("<td>Description</td>");
                 writer.print("</tr>");
-            }
 
-            writer.print("</table>");
-            writer.println("</body>");
-            writer.println("</html>");
-            writer.flush();
-            writer.close();
+                for (int i = 0; i < listFichier.length; ++i) {
+                    //String lien = file.getPath().replaceFirst(document, "") + "\\" + listFichier[i].getName();
+                    writer.print("<tr>");
+                    writer.println("<td><a href=\"" + tokens[1] + "/" + listFichier[i].getName() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
+                    writer.print("</tr>");
+                }
+
+                writer.print("</table>");
+                writer.println("</body>");
+                writer.println("</html>");
+                //writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                //e.printStackTrace();
+                System.err.println("Impossible de recevoir la destination");
+            }
         }
-        catch (IOException e){
-            //e.printStackTrace();
-            System.err.println("Impossible de recevoir la destination");
+        else {
+            tokens[1] = "/404.html";
+            File fichierErreur404 = new File("c:\\www\\404.html");
+            Afficher_Erreur403(fichierErreur404, tokens);
+            System.err.println("Client deconnecte");
+        }
+    }
+
+    private void Afficher_Erreur403(File file, String [] tokens) {
+        try {
+            get(tokens, file);
+        }
+        catch (FileNotFoundException fnfe){
+            System.err.println(file + " fichier introuvable");
         }
     }
 
@@ -176,7 +199,7 @@ public class ServiceWeb implements Runnable{
             }
         }
         catch (FileNotFoundException fnfe){
-            System.out.println(file + " fichier introuvable");
+            System.err.println(file + " fichier introuvable");
         }
         catch(IOException ioe){
             System.err.println("Unexpected Error");

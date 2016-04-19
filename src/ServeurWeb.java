@@ -163,7 +163,6 @@ public class ServeurWeb {
                         break;
                     case "list":
                         list = tokens[1].equals("true");
-                        System.out.println(list);
                         break;
                     case "connexion":
                         connNumber = Integer.parseInt(tokens[1]);
