@@ -3,6 +3,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 
 public class ServiceWeb implements Runnable{
@@ -15,6 +16,7 @@ public class ServiceWeb implements Runnable{
     //region Variables
     private Socket cSocket;
     public BufferedReader reader= null;
+    public PrintWriter writeFichier = null;
     public PrintWriter writer= null;
     public BufferedInputStream read= null;
     public DataOutputStream sender = null;
@@ -36,6 +38,7 @@ public class ServiceWeb implements Runnable{
     public void run(){
         try {
             reader = new BufferedReader(new InputStreamReader(cSocket.getInputStream()));
+            writeFichier = new PrintWriter(new BufferedWriter(new FileWriter("acces.txt", true)), true);
 
             try {
                 writer = new PrintWriter(cSocket.getOutputStream(), true);
@@ -45,15 +48,11 @@ public class ServiceWeb implements Runnable{
                     System.out.println(ligne);
 
                 tokens = ligne.split(" ");
+
                 if(tokens[0].equals(GET) || tokens[0].equals(HEAD)) {
                     if (tokens[0].equals(GET) && tokens[1].length() == 1) get(tokens, INDEX);
-
                     else if (tokens.length > 1) {
                         file = new File(document + tokens[1]);
-                        if (tokens[1].endsWith("/"))
-                            fileIndex = new File(document + tokens[1] + "index.html");
-                        else if (tokens[1].endsWith(""))
-                            fileIndex = new File(document + tokens[1] + "/index.html");
 
 
                         if (file.exists() && !file.isDirectory()) {
@@ -65,7 +64,13 @@ public class ServiceWeb implements Runnable{
                         }
 
                         if (!fileExist) {
+                            if (tokens[1].endsWith("/"))
+                                fileIndex = new File(document + tokens[1] + "index.html");
+                            else if (tokens[1].endsWith(""))
+                                fileIndex = new File(document + tokens[1] + "/index.html");
+
                             if(fileIndex.exists()) {
+                                tokens[1] += fileIndex;
                                 if (tokens[0].equals(HEAD)) head(tokens, fileIndex);
                                 if (tokens[0].equals(GET)) {
                                     if (tokens[1].length() > 2) get(tokens, fileIndex);
@@ -97,17 +102,13 @@ public class ServiceWeb implements Runnable{
                     writer.println();
                 }
             }
-            catch (FileNotFoundException fnfe){
-//                writer.println("HTTP/1.1 404 Not Found");
-//                writer.println();
-//                writer.flush();
-//                writer.close();
-            }
             catch (IOException ioe) {
                 System.err.println("Unexpected error");
             }
+
             read.close();
             sender.close();
+            writeFichier.close();
             writer.close();
             reader.close();
 
@@ -119,7 +120,6 @@ public class ServiceWeb implements Runnable{
     }
 
     private void Afficher_Fichiers(File file, String [] tokens) {
-//        String lien = file.getPath().replaceFirst(repertoire, "") + "\\" + s;
         File[] listFichier = file.listFiles();
         if(listFichier != null) {
             try {
@@ -161,6 +161,16 @@ public class ServiceWeb implements Runnable{
         }
     }
 
+    private void Fichier_Acces() {
+        writeFichier.println("IP: " + cSocket.getInetAddress());
+        writeFichier.println("Date: " + getDateRfc822(date));
+        writeFichier.println("Requete: " + ligne);
+        writeFichier.println("Reponse: HTTP/1.0 200 OK");
+        //TODO Browser
+        //writeFichier.println("Navigateur utilisé: " + reader.lines().collect(Collectors.joining()));
+        writeFichier.println("\n");
+    }
+
     private void Afficher_Erreur(File file, String [] tokens) {
         try {
             get(tokens, file);
@@ -182,6 +192,8 @@ public class ServiceWeb implements Runnable{
             writer.println("Last-modified: " + getLastModifiedDateRfc822(file));
             writer.println("Content-length: " + file.length());
             writer.println();
+
+            Fichier_Acces();
         }
         catch (Exception e){
             System.err.println("Impossible de recevoir la destination");
