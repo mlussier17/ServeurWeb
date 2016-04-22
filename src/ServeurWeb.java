@@ -4,7 +4,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.Future;
 
 public class ServeurWeb {
     //("\\config.txt") on console ------- ("\\src\\config.txt") on IjIdea
@@ -23,6 +25,8 @@ public class ServeurWeb {
     private static File projectpath;
     private static File configFile;
     private static File configPath;
+    private BufferedReader reader;
+    public static int connexions = 0;
     // endregion
 
     public static void main (String args[]){
@@ -114,25 +118,34 @@ public class ServeurWeb {
     public void connection(){
         try{
             sSocket = new ServerSocket(portNumber);
+            reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Port = " + portNumber);
             System.out.println("Directory = " + rootPath);
             System.out.println("Server online waiting for request ...");
+            System.out.println("Connexions accpeted = " + connNumber);
+
 
             while(run){
                 Socket cSocket = sSocket.accept();
-                System.out.println("Client connected.");
-                ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
-                t = new Thread(conn);
-                t.start();
+                if(connexions == connNumber)cSocket.close();
+                if(connexions < connNumber) {
+                    System.out.println("Client connected.");
+                    ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
+                    t = new Thread(conn);
+                    t.start();
+                    connexions++;
+                }
+                System.out.println(connexions);
             }
             sSocket.close();
+            System.out.println("Server is closed");
         }
         catch (BindException be){
             System.err.println("Port is already in use by another program.");
             System.exit(1);
         }
         catch(IOException ioe){
-            ioe.printStackTrace();
+            System.err.println("Unexpected error on the server");
             System.exit(1);
         }
     }

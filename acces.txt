@@ -1,4 +1,4 @@
-﻿IP: /127.0.0.1
+﻿﻿IP: /127.0.0.1
 Date: Fri, 22 Apr 2016 14:06:20 EDT
 Requete: GET /doge.png HTTP/1.1
 Reponse: HTTP/1.0 200 OK
@@ -280,6 +280,139 @@ User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/
 
 IP: /127.0.0.1
 Date: Fri, 22 Apr 2016 15:00:26 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:02:28 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:02:49 EDT
+Requete: HEAD /ondex.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:03:03 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:04:30 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:05:51 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:07:03 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:10:01 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:10:38 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:10:53 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:11:56 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:13:18 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:13:32 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:13:15 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:13:43 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:14:15 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:19:06 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:19:18 EDT
+Requete: HEAD /idnex.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:19:31 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:29:58 EDT
 Requete: HEAD /index.html
 Reponse: HTTP/1.0 200 OK
 null

@@ -106,12 +106,18 @@ public class ServiceWeb implements Runnable{
                 }
             } catch (IOException ioe) {
                 System.err.println("Unexpected error");
-            } finally {
+            }
+            finally {
                 closeShitUp();
             }
+
         } catch (Exception e) {
             System.err.println("Client disconnected the wrong way bro");
         }
+        finally{
+            ServeurWeb.connexions--;
+        }
+
     }
 
 
@@ -245,7 +251,7 @@ public class ServiceWeb implements Runnable{
         }
     }
     private void get(String[] tokens, File file) throws FileNotFoundException{
-        try{
+        try {
             head(tokens,file);
             sender = new DataOutputStream(new BufferedOutputStream(cSocket.getOutputStream()));
             read = new BufferedInputStream(new FileInputStream(file));
