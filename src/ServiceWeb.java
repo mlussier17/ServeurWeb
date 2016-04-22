@@ -50,21 +50,9 @@ public class ServiceWeb implements Runnable{
             try {
                 writer = new PrintWriter(cSocket.getOutputStream(), true);
 
-                if (true) {
-                    try {
-                        ligne = reader.readLine();
-
-                        if (ligne != null) System.out.println(ligne);
-                    } catch (IOException e) {
-                        System.err.println(e.getMessage());
-                    }
-                }
-                else {
-                    getRequest(reader);
-                    getBrowser(reader);
-                }
-
+                getRequest(reader);
                 tokens = ligne.split(" ");
+                tokens[GET_NAME_REQUEST] = tokens[GET_NAME_REQUEST].toUpperCase();
 
                 // Vérifier validité requete
                 if (tokens[GET_NAME_REQUEST].equals(GET) || tokens[GET_NAME_REQUEST].equals(HEAD)) {
@@ -83,7 +71,7 @@ public class ServiceWeb implements Runnable{
                                 if (tokens[GET_DOCUMENT_PATH].length() > 2) get(tokens, file);
                             }
                         } else {
-                            if (!showIndexWindow() && ServeurWeb.getList()) showFiles(file, tokens);
+                            if (!showIndexWindow() && ServeurWeb.getList()) showFiles(fileIndex, tokens);
 
                             // region Mesages d'erreurs
                             // Quand liste est false Error 403
@@ -98,12 +86,12 @@ public class ServiceWeb implements Runnable{
                             }
                             // endregion
                         }
-                        fileAcces();
                     }
                     //endregion
                 } else {
                     error501();
                 }
+                fileAcces();
             } catch (IOException ioe) {
                 System.err.println("Unexpected error");
             }
@@ -112,12 +100,11 @@ public class ServiceWeb implements Runnable{
             }
 
         } catch (Exception e) {
-            System.err.println("Client disconnected the wrong way bro");
+            System.err.println("Client disconnected");
         }
         finally{
             ServeurWeb.connexions--;
         }
-
     }
 
 
@@ -167,6 +154,7 @@ public class ServiceWeb implements Runnable{
         writeFichier.println("Date: " + getDateRfc822(date));
         writeFichier.println("Requete: " + ligne);
         writeFichier.println("Reponse: HTTP/1.0 200 OK");
+        getBrowser(reader);
         writeFichier.println(browser);
         writeFichier.println("\n");
     }
@@ -174,13 +162,8 @@ public class ServiceWeb implements Runnable{
         try {
             boolean pasFini = true;
 
-            while (pasFini) {
-                browser = reader.readLine();
+            while (pasFini || (browser = reader.readLine()) != null) {
                 if (browser.startsWith("User-Agent: ")) pasFini = false;
-                else if (browser == null) {
-                    pasFini = true;
-                    browser = "Putty";
-                }
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
