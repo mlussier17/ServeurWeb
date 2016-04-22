@@ -71,11 +71,11 @@ public class ServiceWeb implements Runnable{
                                 if (tokens[GET_DOCUMENT_PATH].length() > 2) get(tokens, file);
                             }
                         } else {
-                            if (!showIndexWindow() && ServeurWeb.getList()) showFiles(fileIndex, tokens);
+                            if (!showIndexWindow() && ServeurWeb.getList()) showFiles(file, tokens);
 
                             // region Mesages d'erreurs
                             // Quand liste est false Error 403
-                            else if (file.isDirectory()) {
+                            else if (!ServeurWeb.getList()) {
                                 tokens[1] = "/403.html";
                                 showError(new File("403.html"), tokens);
                             }
@@ -112,33 +112,36 @@ public class ServiceWeb implements Runnable{
         File[] listFichier = file.listFiles();
         if(listFichier != null) {
             try {
-                writer = new PrintWriter(cSocket.getOutputStream(), true);
+                head(tokens, file);
+                if(tokens[GET_NAME_REQUEST].equals(GET)) {
+                    writer = new PrintWriter(cSocket.getOutputStream(), true);
 
-                writer.println("<html>");
-                writer.println("<body> \n");
+                    writer.println("<html>");
+                    writer.println("<body> \n");
 
-                writer.println("<h1>Index of " + file.toString() + "</h1> \n");
+                    writer.println("<h1>Index of " + file.toString() + "</h1> \n");
 
-                writer.println("<table style=\"width:100%\"> \n");
+                    writer.println("<table style=\"width:100%\"> \n");
 
-                writer.println("<tr>");
-                writer.println("<td>Name</td>");
-                writer.println("<td>Last modified</td>");
-                writer.println("<td>Size</td>");
-                writer.println("<td>Description</td>");
-                writer.println("</tr> \n");
-
-                for (int i = 0; i < listFichier.length; ++i) {
                     writer.println("<tr>");
-                    writer.println("<td><a href=\"" + tokens[GET_DOCUMENT_PATH] + "/" + listFichier[i].getName() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
-                    writer.println("</tr>");
+                    writer.println("<td>Name</td>");
+                    writer.println("<td>Last modified</td>");
+                    writer.println("<td>Size</td>");
+                    writer.println("<td>Description</td>");
+                    writer.println("</tr> \n");
+
+                    for (int i = 0; i < listFichier.length; ++i) {
+                        writer.println("<tr>");
+                        writer.println("<td><a href=\"" + tokens[GET_DOCUMENT_PATH] + "/" + listFichier[i].getName() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
+                        writer.println("</tr>");
+                    }
+
+                    writer.println("\n</table>");
+                    writer.println("</body>");
+                    writer.println("</html>");
+
+                    writer.close();
                 }
-
-                writer.println("\n</table>");
-                writer.println("</body>");
-                writer.println("</html>");
-
-                writer.close();
             } catch (IOException e) {
                 System.err.println("Impossible de recevoir la destination");
             }
