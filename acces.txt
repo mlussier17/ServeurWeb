@@ -1,19 +1,19 @@
 ﻿IP: /127.0.0.1
-IP: /127.0.0.1
-Date: Fri, 22 Apr 2016 13:02:35 EDT
-Requete: GET /images/doge.jpeg HTTP/1.1
-Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
-
-
-Date: Fri, 22 Apr 2016 13:02:35 EDT
+Date: Fri, 22 Apr 2016 14:06:20 EDT
 Requete: GET /doge.png HTTP/1.1
 Reponse: HTTP/1.0 200 OK
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
 
 
 IP: /127.0.0.1
-Date: Fri, 22 Apr 2016 13:02:35 EDT
+Date: Fri, 22 Apr 2016 14:06:20 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:20 EDT
 Requete: GET /favicon.ico HTTP/1.1
 Reponse: HTTP/1.0 200 OK
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
@@ -21,64 +21,225 @@ User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/
 
 IP: /127.0.0.1
 IP: /127.0.0.1
-Date: Fri, 22 Apr 2016 13:02:35 EDT
+Date: Fri, 22 Apr 2016 14:06:20 EDT
 Requete: GET /favicon.ico HTTP/1.1
 Reponse: HTTP/1.0 200 OK
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
 
 
-Date: Fri, 22 Apr 2016 13:02:35 EDT
+Date: Fri, 22 Apr 2016 14:06:20 EDT
 Requete: GET /favicon.ico HTTP/1.1
 Reponse: HTTP/1.0 200 OK
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
 
 
 IP: /127.0.0.1
-Date: Fri, 22 Apr 2016 13:02:37 EDT
+Date: Fri, 22 Apr 2016 14:06:23 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:24 EDT
+Requete: GET /dossier1 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:25 EDT
 Requete: GET /hobbits.html HTTP/1.1
 Reponse: HTTP/1.0 200 OK
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
 
 
-IP: /0:0:0:0:0:0:0:1
-Date: Fri, 22 Apr 2016 13:03:13 EDT
-Requete: GET /doge.png HTTP/1.1
-Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
-
-
-IP: /0:0:0:0:0:0:0:1
-Date: Fri, 22 Apr 2016 13:03:13 EDT
-Requete: GET /images/doge.jpeg HTTP/1.1
-Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
-
-
-IP: /0:0:0:0:0:0:0:1
-Date: Fri, 22 Apr 2016 13:03:13 EDT
-Requete: GET /favicon.ico HTTP/1.1
-Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
-
-
-IP: /0:0:0:0:0:0:0:1
-Date: Fri, 22 Apr 2016 13:03:20 EDT
-Requete: GET /dossier1/ HTTP/1.1
-Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
-
-
-IP: /0:0:0:0:0:0:0:1
-Date: Fri, 22 Apr 2016 13:03:21 EDT
-Requete: GET /index.html HTTP/1.1
-Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
-
-
-IP: /0:0:0:0:0:0:0:1
-Date: Fri, 22 Apr 2016 13:03:25 EDT
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:27 EDT
 Requete: GET /gollum.html HTTP/1.1
 Reponse: HTTP/1.0 200 OK
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:44 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:44 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:44 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:44 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:44 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:46 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:47 EDT
+Requete: GET /dossier2/dossier1 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:49 EDT
+Requete: GET /dossier2/dossier1/testcopie.txt HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:50 EDT
+Requete: GET /dossier2/ano.jpg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:06:52 EDT
+Requete: GET /dossier2/ano.jpg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:38 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:38 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:38 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:38 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+Date: Fri, 22 Apr 2016 14:15:38 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:40 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:41 EDT
+Requete: GET /dossier2/ano.jpg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:42 EDT
+Requete: GET /dossier2/ano.jpg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:42 EDT
+Requete: GET /dossier2/balfedfg.txt HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:44 EDT
+Requete: GET /dossier2/dossier1 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:15:45 EDT
+Requete: GET /dossier2/dossier1/testcopie.txt HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:22:51 EDT
+Requete: GET /fef HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:22:51 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:22:51 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+Date: Fri, 22 Apr 2016 14:22:51 EDT
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+Requete: GET /favicon.ico HTTP/1.1
+
+
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:22:58 EDT
+Requete: GET /edfef HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
 
 

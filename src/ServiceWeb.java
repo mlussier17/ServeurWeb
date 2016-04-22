@@ -3,7 +3,6 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 
 public class ServiceWeb implements Runnable{
@@ -12,14 +11,18 @@ public class ServiceWeb implements Runnable{
     private final String HEAD = "HEAD";
     private final String GET = "GET";
     private final File INDEX = new File("c:\\www\\index.html");
+    //region Constantes pour tokens
+    private final int GET_NAME_REQUEST = 0;
+    private final int GET_DOCUMENT_PATH = 1;
+    //endregion
     //endregion
     //region Variables
     private Socket cSocket;
 
-    public BufferedReader reader= null;
+    public BufferedReader reader = null;
     public PrintWriter writeFichier = null;
-    public PrintWriter writer= null;
-    public BufferedInputStream read= null;
+    public PrintWriter writer = null;
+    public BufferedInputStream read = null;
     public DataOutputStream sender = null;
 
     private String ligne = null;
@@ -31,8 +34,6 @@ public class ServiceWeb implements Runnable{
 
     private File file = null;
     private File fileIndex = null;
-
-    private boolean fileExist = false;
     //endregion
 
     public  ServiceWeb(Socket client, String path){
@@ -41,99 +42,69 @@ public class ServiceWeb implements Runnable{
         date = new Date();
     }
 
-    public void run(){
+    public void run() {
         try {
             reader = new BufferedReader(new InputStreamReader(cSocket.getInputStream()));
             writeFichier = new PrintWriter(new BufferedWriter(new FileWriter("acces.txt", true)), true);
 
             try {
                 writer = new PrintWriter(cSocket.getOutputStream(), true);
-                ligne = reader.readLine();
 
-                if (ligne != null)
-                    System.out.println(ligne);
-
-                boolean pasFini = true;
-
-                while (pasFini) {
-                    browser = reader.readLine();
-                    if (browser.startsWith("User-Agent: ")) pasFini = false;
-                }
+                getRequest(reader);
+                getBrowser(reader);
 
                 tokens = ligne.split(" ");
 
-                if(tokens[0].equals(GET) || tokens[0].equals(HEAD)) {
-                    if (tokens[0].equals(GET) && tokens[1].length() == 1) get(tokens, INDEX);
+                // Vérifier validité requete
+                if (tokens[GET_NAME_REQUEST].equals(GET) || tokens[GET_NAME_REQUEST].equals(HEAD)) {
+                    // S'il n'y a pas de paramètre par défaut envoyer vers index
+                    if (tokens[GET_NAME_REQUEST].equals(GET) && tokens[GET_DOCUMENT_PATH].length() == 1)
+                        get(tokens, INDEX);
+
+                    // region If the request has parameters
                     else if (tokens.length > 1) {
                         file = new File(document + tokens[1]);
 
-
+                        // Si le fichier existe et n'est pas un répertoire
                         if (file.exists() && !file.isDirectory()) {
-                            fileExist = true;
-                            if (tokens[0].equals(HEAD)) head(tokens, file);
-                            if (tokens[0].equals(GET)) {
-                                if (tokens[1].length() > 2) get(tokens, file);
+                            if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, file);
+                            if (tokens[GET_NAME_REQUEST].equals(GET)) {
+                                if (tokens[GET_DOCUMENT_PATH].length() > 2) get(tokens, file);
                             }
-                        }
-
-                        if (!fileExist) {
-                            if (tokens[1].endsWith("/"))
-                                fileIndex = new File(document + tokens[1] + "index.html");
-                            else if (tokens[1].endsWith(""))
-                                fileIndex = new File(document + tokens[1] + "/index.html");
-
-                            if(fileIndex.exists()) {
-                                tokens[1] += fileIndex;
-                                if (tokens[0].equals(HEAD)) head(tokens, fileIndex);
-                                if (tokens[0].equals(GET)) {
-                                    if (tokens[1].length() > 2) get(tokens, fileIndex);
-                                }
-                            }
-                            else if(ServeurWeb.getList()) {
-                                Afficher_Fichiers(file, tokens);
-                            }
+                        } else {
+                            if (!showIndexWindow() && ServeurWeb.getList()) showFiles(file, tokens);
 
                             // region Mesages d'erreurs
                             // Quand liste est false Error 403
                             else if (file.isDirectory()) {
                                 tokens[1] = "/403.html";
-                                File fichierErreur403 = new File("403.html");
-                                Afficher_Erreur(fichierErreur403, tokens);
+                                showError(new File("403.html"), tokens);
                             }
                             // Quand le fichier n'existe pas Error 404
                             else {
                                 tokens[1] = "/404.html";
-                                File fichierErreur404 = new File("404.html");
-                                Afficher_Erreur(fichierErreur404, tokens);
+                                showError(new File("404.html"), tokens);
                             }
                             // endregion
                         }
-                        Fichier_Acces();
+                        fileAcces();
                     }
+                    //endregion
+                } else {
+                    error501();
                 }
-                else {
-                    writer.println("HTTP 501 Not implemented");
-                    writer.println();
-                }
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 System.err.println("Unexpected error");
+            } finally {
+                closeShitUp();
             }
-
-            read.close();
-            sender.close();
-            writeFichier.close();
-            writer.close();
-            reader.close();
-
-            System.out.println("Client deconnecte");
-            cSocket.close();
         } catch (Exception e) {
-            System.err.println("Client deconnecte");
+            System.err.println("Client disconnected the wrong way bro");
         }
     }
 
-    private void Afficher_Fichiers(File file, String [] tokens) {
+
+    private void showFiles(File file, String [] tokens) {
         File[] listFichier = file.listFiles();
         if(listFichier != null) {
             try {
@@ -155,7 +126,7 @@ public class ServiceWeb implements Runnable{
 
                 for (int i = 0; i < listFichier.length; ++i) {
                     writer.println("<tr>");
-                    writer.println("<td><a href=\"" + tokens[1] + "/" + listFichier[i].getName() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
+                    writer.println("<td><a href=\"" + tokens[GET_DOCUMENT_PATH] + "/" + listFichier[i].getName() + "\">" + listFichier[i].toString() + "</a></td><td>" + getLastModifiedDateRfc822(listFichier[i]) + "</td><td>" + listFichier[i].length() + "</td>");
                     writer.println("</tr>");
                 }
 
@@ -170,31 +141,75 @@ public class ServiceWeb implements Runnable{
         }
         else {
             tokens[1] = "/404.html";
-            File fichierErreur404 = new File("404.html");
-            Afficher_Erreur(fichierErreur404, tokens);
+            showError(new File("404.html"), tokens);
         }
     }
 
-    private void Fichier_Acces() {
+    private void fileAcces() {
         writeFichier.println("IP: " + cSocket.getInetAddress());
         writeFichier.println("Date: " + getDateRfc822(date));
         writeFichier.println("Requete: " + ligne);
         writeFichier.println("Reponse: HTTP/1.0 200 OK");
-        //TODO Browser
-
-        //String ligne = reader.lines().collect(Collectors.joining());
         writeFichier.println(browser);
-        //writeFichier.println(27,);
         writeFichier.println("\n");
     }
+    private void getBrowser(BufferedReader reader) {
+        try {
+            boolean pasFini = true;
 
-    private void Afficher_Erreur(File file, String [] tokens) {
+            while (pasFini) {
+                browser = reader.readLine();
+                if (browser.startsWith("User-Agent: ")) pasFini = false;
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    private void getRequest(BufferedReader reader) {
+        try {
+            ligne = reader.readLine();
+
+            if (ligne != null) System.out.println(ligne);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void showError(File file, String [] tokens) {
         try {
             get(tokens, file);
         }
         catch (FileNotFoundException fnfe){
             System.err.println(file + " fichier introuvable");
         }
+    }
+    private void error501() {
+        writer.println("HTTP 501 Not implemented");
+        writer.println();
+    }
+    private boolean showIndexWindow() {
+        boolean indexRepertoryExist = false;
+
+        if (tokens[1].endsWith("/"))
+            fileIndex = new File(document + tokens[1] + "index.html");
+        else if (tokens[1].endsWith(""))
+            fileIndex = new File(document + tokens[1] + "/index.html");
+
+        if(fileIndex.exists()) {
+            try {
+                tokens[1] += fileIndex;
+                if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, fileIndex);
+                if (tokens[GET_NAME_REQUEST].equals(GET)) {
+                    if (tokens[GET_DOCUMENT_PATH].length() > 2)
+                        get(tokens, fileIndex);
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
+            indexRepertoryExist = true;
+        }
+
+        return indexRepertoryExist;
     }
 
     private void head(String[] tokens, File file){
@@ -203,7 +218,7 @@ public class ServiceWeb implements Runnable{
             writer.println("Server: Bulletproof Corporation, CEO:Joaquin, Bitch:Mathieu");
             writer.println("Date: " + getDateRfc822(date));
 
-            if (tokens[1].endsWith("/")) writer.println("Content-type: text/html");
+            if (tokens[GET_DOCUMENT_PATH].endsWith("/")) writer.println("Content-type: text/html");
             else writer.println("Content-type: " + checkContentExtension(tokens));
 
             writer.println("Last-modified: " + getLastModifiedDateRfc822(file));
@@ -214,7 +229,6 @@ public class ServiceWeb implements Runnable{
             System.err.println("Impossible de recevoir la destination");
         }
     }
-
     private void get(String[] tokens, File file) throws FileNotFoundException{
         try{
             head(tokens,file);
@@ -235,14 +249,26 @@ public class ServiceWeb implements Runnable{
     }
 
     public String checkContentExtension(String[] tokens){
-        if (tokens[1].toLowerCase().endsWith(".html")) return new String ("text/html");
-        if (tokens[1].toLowerCase().endsWith(".txt"))return new String ("text/plain");
-        if (tokens[1].toLowerCase().endsWith(".gif"))return new String ("image/gif");
-        if (tokens[1].toLowerCase().endsWith(".jpg") || tokens[1].toLowerCase().endsWith(".jpeg"))return new String ("image/jpeg");
-        if (tokens[1].toLowerCase().endsWith(".png")) return new String ("image/png");
+        if (tokens[GET_DOCUMENT_PATH].toLowerCase().endsWith(".html")) return new String ("text/html");
+        else if (tokens[GET_DOCUMENT_PATH].toLowerCase().endsWith(".txt"))return new String ("text/plain");
+        else if (tokens[GET_DOCUMENT_PATH].toLowerCase().endsWith(".gif"))return new String ("image/gif");
+        else if (tokens[GET_DOCUMENT_PATH].toLowerCase().endsWith(".jpg") || tokens[GET_DOCUMENT_PATH].toLowerCase().endsWith(".jpeg"))return new String ("image/jpeg");
+        else if (tokens[GET_DOCUMENT_PATH].toLowerCase().endsWith(".png")) return new String ("image/png");
         else return new String("Les extensions de fichiers possible sont .html, .txt, .gif, .jpg, .jpeg, ou .png");
     }
 
+    public void closeShitUp() {
+        try {
+            read.close();
+            sender.close();
+            writeFichier.close();
+            writer.close();
+            reader.close();
+            cSocket.close();
+        } catch (IOException e) {
+            System.err.println("Couldn't close correctly");
+        }
+    }
     public String getDateRfc822(Date date) {
         SimpleDateFormat formatRfc822 = new SimpleDateFormat(
                 "EEE', 'dd' 'MMM' 'yyyy' 'HH:mm:ss' 'z", Locale.CANADA );
