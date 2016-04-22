@@ -243,3 +243,45 @@ Reponse: HTTP/1.0 200 OK
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
 
 
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:46:07 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:46:07 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:46:07 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:46:07 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 14:46:07 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 15:00:26 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+null
+
+

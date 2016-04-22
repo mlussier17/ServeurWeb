@@ -50,8 +50,19 @@ public class ServiceWeb implements Runnable{
             try {
                 writer = new PrintWriter(cSocket.getOutputStream(), true);
 
-                getRequest(reader);
-                getBrowser(reader);
+                if (true) {
+                    try {
+                        ligne = reader.readLine();
+
+                        if (ligne != null) System.out.println(ligne);
+                    } catch (IOException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                else {
+                    getRequest(reader);
+                    getBrowser(reader);
+                }
 
                 tokens = ligne.split(" ");
 
@@ -160,6 +171,10 @@ public class ServiceWeb implements Runnable{
             while (pasFini) {
                 browser = reader.readLine();
                 if (browser.startsWith("User-Agent: ")) pasFini = false;
+                else if (browser == null) {
+                    pasFini = true;
+                    browser = "Putty";
+                }
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
