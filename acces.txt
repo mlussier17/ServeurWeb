@@ -1,0 +1,84 @@
+﻿IP: /127.0.0.1
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 13:02:35 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+Date: Fri, 22 Apr 2016 13:02:35 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 13:02:35 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 13:02:35 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+Date: Fri, 22 Apr 2016 13:02:35 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /127.0.0.1
+Date: Fri, 22 Apr 2016 13:02:37 EDT
+Requete: GET /hobbits.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0
+
+
+IP: /0:0:0:0:0:0:0:1
+Date: Fri, 22 Apr 2016 13:03:13 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+
+
+IP: /0:0:0:0:0:0:0:1
+Date: Fri, 22 Apr 2016 13:03:13 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+
+
+IP: /0:0:0:0:0:0:0:1
+Date: Fri, 22 Apr 2016 13:03:13 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+
+
+IP: /0:0:0:0:0:0:0:1
+Date: Fri, 22 Apr 2016 13:03:20 EDT
+Requete: GET /dossier1/ HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+
+
+IP: /0:0:0:0:0:0:0:1
+Date: Fri, 22 Apr 2016 13:03:21 EDT
+Requete: GET /index.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+
+
+IP: /0:0:0:0:0:0:0:1
+Date: Fri, 22 Apr 2016 13:03:25 EDT
+Requete: GET /gollum.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36
+
+

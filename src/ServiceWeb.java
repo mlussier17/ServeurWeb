@@ -15,18 +15,24 @@ public class ServiceWeb implements Runnable{
     //endregion
     //region Variables
     private Socket cSocket;
+
     public BufferedReader reader= null;
     public PrintWriter writeFichier = null;
     public PrintWriter writer= null;
     public BufferedInputStream read= null;
     public DataOutputStream sender = null;
+
     private String ligne = null;
+    private String browser = null;
     private String document = null;
+    private String[] tokens = null;
+
     private Date date;
+
     private File file = null;
     private File fileIndex = null;
+
     private boolean fileExist = false;
-    String[] tokens = null;
     //endregion
 
     public  ServiceWeb(Socket client, String path){
@@ -46,6 +52,13 @@ public class ServiceWeb implements Runnable{
 
                 if (ligne != null)
                     System.out.println(ligne);
+
+                boolean pasFini = true;
+
+                while (pasFini) {
+                    browser = reader.readLine();
+                    if (browser.startsWith("User-Agent: ")) pasFini = false;
+                }
 
                 tokens = ligne.split(" ");
 
@@ -95,6 +108,7 @@ public class ServiceWeb implements Runnable{
                             }
                             // endregion
                         }
+                        Fichier_Acces();
                     }
                 }
                 else {
@@ -167,7 +181,10 @@ public class ServiceWeb implements Runnable{
         writeFichier.println("Requete: " + ligne);
         writeFichier.println("Reponse: HTTP/1.0 200 OK");
         //TODO Browser
-        //writeFichier.println("Navigateur utilisé: " + reader.lines().collect(Collectors.joining()));
+
+        //String ligne = reader.lines().collect(Collectors.joining());
+        writeFichier.println(browser);
+        //writeFichier.println(27,);
         writeFichier.println("\n");
     }
 
@@ -192,8 +209,6 @@ public class ServiceWeb implements Runnable{
             writer.println("Last-modified: " + getLastModifiedDateRfc822(file));
             writer.println("Content-length: " + file.length());
             writer.println();
-
-            Fichier_Acces();
         }
         catch (Exception e){
             System.err.println("Impossible de recevoir la destination");
