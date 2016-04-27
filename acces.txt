@@ -114,3 +114,43 @@ IP: /127.0.0.1
 Date: Fri, 22 Apr 2016 16:32:23 EDT
 Requete: GET /index.html
 Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 10:58:40 EDT
+Requete: GET / HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 10:58:40 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 10:58:52 EDT
+Requete: GET / HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 10:59:59 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 10:59:56 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 11:00:48 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 11:01:50 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 11:01:59 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 11:02:23 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Wed, 27 Apr 2016 11:02:39 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK

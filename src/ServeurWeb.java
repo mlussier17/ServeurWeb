@@ -123,19 +123,20 @@ public class ServeurWeb {
             System.out.println("Directory = " + rootPath);
             System.out.println("Server online waiting for request ...");
             System.out.println("Connexions accpeted = " + connNumber);
+            Listener listener = new Listener();
+            Thread worker = new Thread(listener);
+            worker.start();
 
-
-            while(run){
+            while(worker.isAlive()){
                 Socket cSocket = sSocket.accept();
                 if(connexions == connNumber)cSocket.close();
-                if(connexions < connNumber) {
+                if(connexions < connNumber || !worker.isAlive()) {
                     System.out.println("Client connected.");
                     ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
                     t = new Thread(conn);
                     t.start();
                     connexions++;
                 }
-                System.out.println(connexions);
             }
             sSocket.close();
             System.out.println("Server is closed");
