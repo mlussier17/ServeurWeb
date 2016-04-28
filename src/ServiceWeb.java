@@ -228,6 +228,7 @@ public class ServiceWeb implements Runnable{
 
     private void head(String[] tokens, File file, int codeError){
         try{
+            //region Success
             if (codeError == CODE_SUCCES_200) {
                 writer.println("HTTP/1.0 200 OK");
                 writer.println("Server: Bulletproof Corporation, CEO:Joaquin, Bitch:Mathieu");
@@ -239,9 +240,11 @@ public class ServiceWeb implements Runnable{
                 writer.println("Last-modified: " + getLastModifiedDateRfc822(file));
                 writer.println("Content-length: " + file.length());
             }
+            //endregion
+            //region Errors
             else if (codeError == CODE_ERROR_403) writer.println("HTTP/1.0 403 UNAUTHORIZED ACCESS.");
             else if (codeError == CODE_ERROR_404) writer.println("HTTP/1.0 404 THE REQUESTED DOCUMENT WAS NOT FOUND.");
-
+            //endregion
             writer.println();
         }
         catch (Exception e){
