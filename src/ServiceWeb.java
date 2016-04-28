@@ -11,6 +11,9 @@ public class ServiceWeb implements Runnable{
     private final String HEAD = "HEAD";
     private final String GET = "GET";
     private final File INDEX = new File("c:\\www\\index.html");
+    private final int CODE_SUCCES_200 = 200;
+    private final int CODE_ERROR_403 = 403;
+    private final int CODE_ERROR_404 = 404;
     //region Constantes pour tokens
     private final int GET_NAME_REQUEST = 0;
     private final int GET_DOCUMENT_PATH = 1;
@@ -58,7 +61,7 @@ public class ServiceWeb implements Runnable{
                 if (tokens[GET_NAME_REQUEST].equals(GET) || tokens[GET_NAME_REQUEST].equals(HEAD)) {
                     // S'il n'y a pas de paramètre par défaut envoyer vers index
                     if (tokens[GET_NAME_REQUEST].equals(GET) && tokens[GET_DOCUMENT_PATH].length() == 1)
-                        get(tokens, INDEX);
+                        get(tokens, INDEX, CODE_SUCCES_200);
 
                     // region If the request has parameters
                     else if (tokens.length > 1) {
@@ -66,9 +69,9 @@ public class ServiceWeb implements Runnable{
 
                         // Si le fichier existe et n'est pas un répertoire
                         if (file.exists() && !file.isDirectory()) {
-                            if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, file);
+                            if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, file, CODE_SUCCES_200);
                             if (tokens[GET_NAME_REQUEST].equals(GET)) {
-                                if (tokens[GET_DOCUMENT_PATH].length() > 2) get(tokens, file);
+                                if (tokens[GET_DOCUMENT_PATH].length() > 2) get(tokens, file, CODE_SUCCES_200);
                             }
                         } else {
                             if (!showIndexWindow() && ServeurWeb.getList()) showFiles(file, tokens);
@@ -77,12 +80,12 @@ public class ServiceWeb implements Runnable{
                             // Quand liste est false Error 403
                             else if (!ServeurWeb.getList()) {
                                 tokens[1] = "/403.html";
-                                showError(new File("403.html"), tokens);
+                                showError(new File("403.html"), tokens, CODE_ERROR_404);
                             }
                             // Quand le fichier n'existe pas Error 404
                             else {
                                 tokens[1] = "/404.html";
-                                showError(new File("404.html"), tokens);
+                                showError(new File("404.html"), tokens, CODE_ERROR_404);
                             }
                             // endregion
                         }
@@ -112,7 +115,7 @@ public class ServiceWeb implements Runnable{
         File[] listFichier = file.listFiles();
         if(listFichier != null) {
             try {
-                head(tokens, file);
+                head(tokens, file, 200);
                 if(tokens[GET_NAME_REQUEST].equals(GET)) {
                     writer = new PrintWriter(cSocket.getOutputStream(), true);
 
@@ -148,7 +151,7 @@ public class ServiceWeb implements Runnable{
         }
         else {
             tokens[1] = "/404.html";
-            showError(new File("404.html"), tokens);
+            showError(new File("404.html"), tokens, CODE_ERROR_404);
         }
     }
 
@@ -183,9 +186,9 @@ public class ServiceWeb implements Runnable{
         }
     }
 
-    private void showError(File file, String [] tokens) {
+    private void showError(File file, String [] tokens, int codeError) {
         try {
-            get(tokens, file);
+            get(tokens, file, codeError);
         }
         catch (FileNotFoundException fnfe){
             System.err.println(file + " fichier introuvable");
@@ -206,10 +209,10 @@ public class ServiceWeb implements Runnable{
         if(fileIndex.exists()) {
             try {
                 tokens[1] += fileIndex;
-                if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, fileIndex);
+                if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, fileIndex, CODE_SUCCES_200);
                 if (tokens[GET_NAME_REQUEST].equals(GET)) {
                     if (tokens[GET_DOCUMENT_PATH].length() > 2)
-                        get(tokens, fileIndex);
+                        get(tokens, fileIndex, CODE_SUCCES_200);
                 }
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
@@ -220,9 +223,12 @@ public class ServiceWeb implements Runnable{
         return indexRepertoryExist;
     }
 
-    private void head(String[] tokens, File file){
+    private void head(String[] tokens, File file, int codeError){
         try{
-            writer.println("HTTP/1.0 200 OK");
+            if (codeError == CODE_SUCCES_200) writer.println("HTTP/1.0 200 OK");
+            else if (codeError == CODE_ERROR_403) writer.println("HTTP/1.0 403 UNAUTHORIZED ACCESS.");
+            else if (codeError == CODE_ERROR_404) writer.println("HTTP/1.0 404 THE REQUESTED DOCUMENT WAS NOT FOUND.");
+
             writer.println("Server: Bulletproof Corporation, CEO:Joaquin, Bitch:Mathieu");
             writer.println("Date: " + getDateRfc822(date));
 
@@ -237,9 +243,9 @@ public class ServiceWeb implements Runnable{
             System.err.println("Impossible de recevoir la destination");
         }
     }
-    private void get(String[] tokens, File file) throws FileNotFoundException{
+    private void get(String[] tokens, File file, int codeError) throws FileNotFoundException{
         try {
-            head(tokens,file);
+            head(tokens,file, codeError);
             sender = new DataOutputStream(new BufferedOutputStream(cSocket.getOutputStream()));
             read = new BufferedInputStream(new FileInputStream(file));
             byte[] b = new byte[4096];
