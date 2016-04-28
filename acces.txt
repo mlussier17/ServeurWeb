@@ -154,3 +154,161 @@ IP: /127.0.0.1
 Date: Wed, 27 Apr 2016 11:02:39 EDT
 Requete: HEAD /index.html
 Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:08:30 EDT
+Requete: head /DFDFDF
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:12:15 EDT
+Requete: head /dfgdfdf
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:12:25 EDT
+Requete: head /dossier2/sdf
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:13:22 EDT
+Requete: head /dossier2
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:15:14 EDT
+Requete: head /dossier2
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:15:24 EDT
+Requete: head / dfgdfd
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:17:13 EDT
+Requete: head / drghdg dh dfgh dfhdfg
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:27:02 EDT
+Requete: head / dfgd dg 
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:27:42 EDT
+Requete: GET / HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:27:42 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:27:42 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:27:42 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:27:51 EDT
+Requete: GET / HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:28:02 EDT
+Requete: GET /index.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:28:52 EDT
+Requete: GET /jsdvbujhsdbvls HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:29:17 EDT
+Requete: HEAD /skjvb
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:29:30 EDT
+Requete: HEAD /idnex.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:29:47 EDT
+Requete: HEAD /index.html
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:30:01 EDT
+Requete: GET /hobbits.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:30:02 EDT
+Requete: GET /hobb HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:30:48 EDT
+Requete: GET / HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:30:48 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:30:48 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:30:48 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:31:00 EDT
+Requete: GET /fgh HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:33:36 EDT
+Requete: GET /dfd HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:33:36 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:33:36 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:33:52 EDT
+Requete: GET /dfd HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:35:53 EDT
+Requete: head /dfg
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:38:24 EDT
+Requete: head /sdfdfg
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:38:38 EDT
+Requete: GET /djgdfd HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:39:01 EDT
+Requete: head / sdf sdf
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:39:26 EDT
+Requete: GET / HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:39:26 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:39:26 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:39:58 EDT
+Requete: GET /srg/index.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:40:11 EDT
+Requete: head / sdfs sdfg sdg
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Thu, 28 Apr 2016 10:40:22 EDT
+Requete: get / srg fdg
+Reponse: HTTP/1.0 200 OK

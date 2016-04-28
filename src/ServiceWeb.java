@@ -115,7 +115,7 @@ public class ServiceWeb implements Runnable{
         File[] listFichier = file.listFiles();
         if(listFichier != null) {
             try {
-                head(tokens, file, 200);
+                head(tokens, file, CODE_ERROR_403);
                 if(tokens[GET_NAME_REQUEST].equals(GET)) {
                     writer = new PrintWriter(cSocket.getOutputStream(), true);
 
@@ -188,7 +188,8 @@ public class ServiceWeb implements Runnable{
 
     private void showError(File file, String [] tokens, int codeError) {
         try {
-            get(tokens, file, codeError);
+            if (tokens[0].equals(HEAD)) head(tokens, file, codeError);
+            else get(tokens, file, codeError);
         }
         catch (FileNotFoundException fnfe){
             System.err.println(file + " fichier introuvable");
@@ -201,12 +202,14 @@ public class ServiceWeb implements Runnable{
     private boolean showIndexWindow() {
         boolean indexRepertoryExist = false;
 
-        if (tokens[1].endsWith("/"))
-            fileIndex = new File(document + tokens[1] + "index.html");
-        else if (tokens[1].endsWith(""))
-            fileIndex = new File(document + tokens[1] + "/index.html");
+        if (tokens[1].length() > 1) {
+            if (tokens[1].endsWith("/"))
+                fileIndex = new File(document + tokens[1] + "index.html");
+            else if (tokens[1].endsWith(""))
+                fileIndex = new File(document + tokens[1] + "/index.html");
+        }
 
-        if(fileIndex.exists()) {
+        if(tokens[1]. length() > 1 && fileIndex.exists()) {
             try {
                 tokens[1] += fileIndex;
                 if (tokens[GET_NAME_REQUEST].equals(HEAD)) head(tokens, fileIndex, CODE_SUCCES_200);
@@ -225,18 +228,20 @@ public class ServiceWeb implements Runnable{
 
     private void head(String[] tokens, File file, int codeError){
         try{
-            if (codeError == CODE_SUCCES_200) writer.println("HTTP/1.0 200 OK");
+            if (codeError == CODE_SUCCES_200) {
+                writer.println("HTTP/1.0 200 OK");
+                writer.println("Server: Bulletproof Corporation, CEO:Joaquin, Bitch:Mathieu");
+                writer.println("Date: " + getDateRfc822(date));
+
+                if (tokens[GET_DOCUMENT_PATH].endsWith("/")) writer.println("Content-type: text/html");
+                else writer.println("Content-type: " + checkContentExtension(tokens));
+
+                writer.println("Last-modified: " + getLastModifiedDateRfc822(file));
+                writer.println("Content-length: " + file.length());
+            }
             else if (codeError == CODE_ERROR_403) writer.println("HTTP/1.0 403 UNAUTHORIZED ACCESS.");
             else if (codeError == CODE_ERROR_404) writer.println("HTTP/1.0 404 THE REQUESTED DOCUMENT WAS NOT FOUND.");
 
-            writer.println("Server: Bulletproof Corporation, CEO:Joaquin, Bitch:Mathieu");
-            writer.println("Date: " + getDateRfc822(date));
-
-            if (tokens[GET_DOCUMENT_PATH].endsWith("/")) writer.println("Content-type: text/html");
-            else writer.println("Content-type: " + checkContentExtension(tokens));
-
-            writer.println("Last-modified: " + getLastModifiedDateRfc822(file));
-            writer.println("Content-length: " + file.length());
             writer.println();
         }
         catch (Exception e){

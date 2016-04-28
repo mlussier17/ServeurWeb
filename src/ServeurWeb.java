@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 
 public class ServeurWeb {
     //("\\config.txt") on console ------- ("\\src\\config.txt") on IjIdea
-    private static final String DEFAULT_CONFIG = ("\\config.txt");
+    private static final String DEFAULT_CONFIG = ("\\src\\config.txt");
 
     // region Variables
     private static int portNumber;
