@@ -176,7 +176,8 @@ public class ServiceWeb implements Runnable{
         try {
             ligne = reader.readLine();
 
-            if (ligne != null) System.out.println(ligne);
+            //if (ligne != null)
+                //System.out.println(ligne);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

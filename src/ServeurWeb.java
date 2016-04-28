@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 
 public class ServeurWeb {
     //("\\config.txt") on console ------- ("\\src\\config.txt") on IjIdea
-    private static final String DEFAULT_CONFIG = ("\\src\\config.txt");
+    private static final String DEFAULT_CONFIG = ("\\config.txt");
 
     // region Variables
     private static int portNumber;
@@ -129,8 +129,8 @@ public class ServeurWeb {
 
             while(worker.isAlive()){
                 Socket cSocket = sSocket.accept();
-                if(connexions == connNumber)cSocket.close();
-                if(connexions < connNumber || !worker.isAlive()) {
+                if(connexions == connNumber || !worker.isAlive())cSocket.close();
+                if(connexions < connNumber && worker.isAlive()) {
                     System.out.println("Client connected.");
                     ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
                     t = new Thread(conn);
