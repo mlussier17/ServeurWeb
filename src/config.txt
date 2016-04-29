@@ -1,4 +1,5 @@
 port=80
 root=c:\www
-list=false
-connexion=10
+index=index.html
+list=true
+connexion=1

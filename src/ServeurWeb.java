@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 
 public class ServeurWeb {
     //("\config.txt") on console ------- ("\src\config.txt") on IjIdea
-    private static final String DEFAULT_CONFIG = ("\\config.txt");
+    private static final String DEFAULT_CONFIG = ("\\src\\config.txt");
 
     // region Variables
     private static int portNumber;
@@ -164,6 +164,7 @@ public class ServeurWeb {
     public void readConfig(File config, Boolean port, Boolean path, String[] args){
         String line;
         String[] tokens;
+        int param = 0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(config));
 
@@ -171,30 +172,69 @@ public class ServeurWeb {
                 tokens = line.split("=");
                 switch(tokens[0]){
                     case "port":
-                        portNumber = port ? Integer.parseInt(args[0]) : Integer.parseInt(tokens[1]);
+                        if (Integer.parseInt(tokens[1]) > 0 && Integer.parseInt(tokens[1]) < 65535) {
+                            portNumber = port ? Integer.parseInt(args[0]) : Integer.parseInt(tokens[1]);
+                            param++;
+                        }
+                        else {
+                            System.err.println("Port in config file is invalid.");
+                            System.exit(1);
+                        }
                         break;
                     case "root":
                         File check = path ? new File(args[1]) : new File(tokens[1]);
-                        if (check.exists())
+                        if (check.exists()) {
                             rootPath = path ? args[1] : tokens[1];
+                            param++;
+                        }
                         else {
-                            System.err.println("Specified directory doesn't exist");
+                            System.err.println("Specified directory doesn't exist in config file");
                             System.exit(1);
                         }
                         break;
                     case "index":
-                        indexFile = tokens[1];
+                        File checkFile = new File(rootPath + "\\" + tokens[1]);
+                        if(checkFile.exists()) {
+                            indexFile = tokens[1];
+                            param++;
+                        }
+                        else{
+                            System.err.println("Index file in config file doesn't exist.");
+                            System.exit(1);
+                        }
                         break;
                     case "list":
-                        list = tokens[1].equals("true");
+                        if(tokens[1].toLowerCase().equals("true") || tokens[1].toLowerCase().equals("false")) {
+                            list = tokens[1].equals("true");
+                            param++;
+                        }
+                        else{
+                            System.err.println("Can't validate the list parameter in config file.");
+                            System.exit(1);
+                        }
                         break;
                     case "connexion":
-                        connNumber = Integer.parseInt(tokens[1]);
+                        if (Integer.parseInt(tokens[1]) > 0) {
+                            connNumber = Integer.parseInt(tokens[1]);
+                            param++;
+                        }
+                        else{
+                            System.err.println("Number of connexions in config file is invalid.");
+                            System.exit(1);
+                        }
                         break;
                     default:
                         break;
                 }
             }
+            if(param != 5){
+                System.err.println("Missing parameters in config file.");
+                System.exit(1);
+            }
+        }
+        catch (NumberFormatException nfe){
+            System.err.println("Wrong parameters in port number or connexions number in config file.");
+            System.exit(1);
         }
         catch (IOException ioe){
             System.err.println("Unable to read the config file.");
