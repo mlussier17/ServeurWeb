@@ -26,3 +26,43 @@ IP: /127.0.0.1
 Date: Fri, 29 Apr 2016 14:03:34 EDT
 Requete: GET /dossier2/dossier1 HTTP/1.1
 Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:05 EDT
+Requete: GET /index.html HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:05 EDT
+Requete: GET /doge.png HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:05 EDT
+Requete: GET /images/doge.jpeg HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:06 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:06 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:06 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:15 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:33 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:47 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 15:22:58 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
