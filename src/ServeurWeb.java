@@ -170,61 +170,62 @@ public class ServeurWeb {
 
             while((line = reader.readLine()) != null){
                 tokens = line.split("=");
-                switch(tokens[0]){
-                    case "port":
-                        if (Integer.parseInt(tokens[1]) > 0 && Integer.parseInt(tokens[1]) < 65535) {
-                            portNumber = port ? Integer.parseInt(args[0]) : Integer.parseInt(tokens[1]);
-                            param++;
-                        }
-                        else {
-                            System.err.println("Port in config file is invalid.");
-                            System.exit(1);
-                        }
-                        break;
-                    case "root":
-                        File check = path ? new File(args[1]) : new File(tokens[1]);
-                        if (check.exists()) {
-                            rootPath = path ? args[1] : tokens[1];
-                            param++;
-                        }
-                        else {
-                            System.err.println("Specified directory doesn't exist in config file");
-                            System.exit(1);
-                        }
-                        break;
-                    case "index":
-                        File checkFile = new File(rootPath + "\\" + tokens[1]);
-                        if(checkFile.exists()) {
-                            indexFile = tokens[1];
-                            param++;
-                        }
-                        else{
-                            System.err.println("Index file in config file doesn't exist.");
-                            System.exit(1);
-                        }
-                        break;
-                    case "list":
-                        if(tokens[1].toLowerCase().equals("true") || tokens[1].toLowerCase().equals("false")) {
-                            list = tokens[1].equals("true");
-                            param++;
-                        }
-                        else{
-                            System.err.println("Can't validate the list parameter in config file.");
-                            System.exit(1);
-                        }
-                        break;
-                    case "connexion":
-                        if (Integer.parseInt(tokens[1]) > 0) {
-                            connNumber = Integer.parseInt(tokens[1]);
-                            param++;
-                        }
-                        else{
-                            System.err.println("Number of connexions in config file is invalid.");
-                            System.exit(1);
-                        }
-                        break;
-                    default:
-                        break;
+                if(tokens.length > 1) {
+                    switch (tokens[0]) {
+                        case "port":
+                            if (Integer.parseInt(tokens[1]) > 0 && Integer.parseInt(tokens[1]) < 65535) {
+                                portNumber = port ? Integer.parseInt(args[0]) : Integer.parseInt(tokens[1]);
+                                param++;
+                            } else {
+                                System.err.println("Port in config file is invalid.");
+                                System.exit(1);
+                            }
+                            break;
+                        case "root":
+                            File check = path ? new File(args[1]) : new File(tokens[1]);
+                            if (check.exists()) {
+                                rootPath = path ? args[1] : tokens[1];
+                                param++;
+                            } else {
+                                System.err.println("Specified directory doesn't exist in config file");
+                                System.exit(1);
+                            }
+                            break;
+                        case "index":
+                            File checkFile = new File(rootPath + "\\" + tokens[1]);
+                            if (checkFile.exists()) {
+                                indexFile = tokens[1];
+                                param++;
+                            } else {
+                                System.err.println("Index file in config file doesn't exist.");
+                                System.exit(1);
+                            }
+                            break;
+                        case "list":
+                            if (tokens[1].toLowerCase().equals("true") || tokens[1].toLowerCase().equals("false")) {
+                                list = tokens[1].equals("true");
+                                param++;
+                            } else {
+                                System.err.println("Can't validate the list parameter in config file.");
+                                System.exit(1);
+                            }
+                            break;
+                        case "connexion":
+                            if (Integer.parseInt(tokens[1]) > 0) {
+                                connNumber = Integer.parseInt(tokens[1]);
+                                param++;
+                            } else {
+                                System.err.println("Number of connexions in config file is invalid.");
+                                System.exit(1);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else{
+                    System.err.println("Missing arguments in config faile.");
+                    System.exit(1);
                 }
             }
             if(param != 5){
