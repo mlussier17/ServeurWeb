@@ -148,6 +148,8 @@ public class ServeurWeb {
         catch(IOException ioe){
             System.err.println("Unexpected error on the server");
             System.exit(1);
+        }finally {
+            System.exit(0);
         }
     }
 

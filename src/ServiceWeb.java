@@ -39,7 +39,7 @@ public class ServiceWeb implements Runnable{
     private File fileIndex = null;
     //endregion
 
-    public  ServiceWeb(Socket client, String path){
+    public ServiceWeb(Socket client, String path){
         document = path;
         cSocket = client;
         date = new Date();
@@ -74,6 +74,7 @@ public class ServiceWeb implements Runnable{
                                 if (tokens[GET_DOCUMENT_PATH].length() > 2) get(tokens, file, CODE_SUCCES_200);
                             }
                         } else {
+                            boolean showError403 = true;
                             if (!showIndexWindow() && ServeurWeb.getList()) showFiles(file, tokens);
 
                             // region Mesages d'erreurs
@@ -81,9 +82,10 @@ public class ServiceWeb implements Runnable{
                             else if (!ServeurWeb.getList()) {
                                 tokens[1] = "/403.html";
                                 showError(new File("403.html"), tokens, CODE_ERROR_404);
+                                showError403 = false;
                             }
                             // Quand le fichier n'existe pas Error 404
-                            else {
+                            else if (!ServeurWeb.getList() && !showError403){
                                 tokens[1] = "/404.html";
                                 showError(new File("404.html"), tokens, CODE_ERROR_404);
                             }
