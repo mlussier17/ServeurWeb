@@ -1,4 +1,4 @@
-port=81
+port=80
 root=c:\www
-list=true
-connexion=2
+list=false
+connexion=10

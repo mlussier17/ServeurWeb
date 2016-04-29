@@ -2,15 +2,17 @@ import java.io.*;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeoutException;
 
 public class ServeurWeb {
-    //("\\config.txt") on console ------- ("\\src\\config.txt") on IjIdea
-    private static final String DEFAULT_CONFIG = ("\\src\\config.txt");
+    //("\config.txt") on console ------- ("\src\config.txt") on IjIdea
+    private static final String DEFAULT_CONFIG = ("\\config.txt");
 
     // region Variables
     private static int portNumber;
@@ -118,6 +120,7 @@ public class ServeurWeb {
     public void connection(){
         try{
             sSocket = new ServerSocket(portNumber);
+            sSocket.setSoTimeout(600);
             reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Port = " + portNumber);
             System.out.println("Directory = " + rootPath);
@@ -128,14 +131,19 @@ public class ServeurWeb {
             worker.start();
 
             while(worker.isAlive()){
-                Socket cSocket = sSocket.accept();
-                if(connexions == connNumber || !worker.isAlive())cSocket.close();
-                if(connexions < connNumber && worker.isAlive()) {
-                    System.out.println("Client connected.");
-                    ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
-                    t = new Thread(conn);
-                    t.start();
-                    connexions++;
+                try {
+                    Socket cSocket = sSocket.accept();
+                    if (connexions == connNumber || !worker.isAlive()) cSocket.close();
+                    if (connexions < connNumber && worker.isAlive()) {
+                        System.out.println("Client connected.");
+                        ServiceWeb conn = new ServiceWeb(cSocket, rootPath);
+                        t = new Thread(conn);
+                        t.start();
+                        connexions++;
+                    }
+                }
+                catch(SocketTimeoutException ex){
+
                 }
             }
             sSocket.close();
