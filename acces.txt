@@ -1,1 +1,28 @@
-﻿
+﻿IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 13:54:50 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 13:54:50 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 13:54:50 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 13:54:50 EDT
+Requete: GET /favicon.ico HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 13:54:57 EDT
+Requete: GET /dossier2/dossier1 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 13:59:35 EDT
+Requete: GET /dossier2 HTTP/1.1
+Reponse: HTTP/1.0 200 OK
+IP: /127.0.0.1
+Date: Fri, 29 Apr 2016 14:03:34 EDT
+Requete: GET /dossier2/dossier1 HTTP/1.1
+Reponse: HTTP/1.0 200 OK

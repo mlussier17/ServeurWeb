@@ -224,7 +224,7 @@ public class ServeurWeb {
                     }
                 }
                 else{
-                    System.err.println("Missing arguments in config faile.");
+                    System.err.println("Missing arguments in config file.");
                     System.exit(1);
                 }
             }
